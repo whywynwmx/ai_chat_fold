@@ -21,7 +21,8 @@
 }
 
 /* Show button on hover of the parent container */
-div.ds-message:hover .aifold-fold-button {
+div.ds-message:hover .aifold-fold-button,
+div.chat-turn-container:hover .aifold-fold-button {
   opacity: 1;
 }
 
@@ -31,7 +32,9 @@ div.ds-message:hover .aifold-fold-button {
 
 /* Class to hide the content */
 .aifold-folded-content {
-  display: none;
+  display: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
 /* Optional: Add a visual indicator to the folded container */
@@ -45,7 +48,7 @@ div.ds-message:hover .aifold-fold-button {
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-left: auto; /* Pushes the controls to the right */
+  margin-left: 8px; /* Add some spacing from other toolbar items */
 }
 
 .aifold-global-button {
@@ -63,4 +66,14 @@ div.ds-message:hover .aifold-fold-button {
 .aifold-global-button:hover {
   background-color: #2d3748;
   opacity: 1;
+}
+
+/* AI Studio specific styles */
+div.chat-turn-container.model {
+  position: relative;
+}
+
+/* Ensure AI Studio's fold button is visible above other elements */
+div.chat-turn-container.model .aifold-fold-button {
+  z-index: 1000;
 }

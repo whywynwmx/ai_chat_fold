@@ -8,11 +8,12 @@ A Chrome extension to easily fold and unfold conversations in AI chat interfaces
 - **Fold/Unfold All:** Quickly collapse or expand all AI responses in the current chat session with a single click.
 - **Extensible Design:** Built with the flexibility to support multiple AI chat platforms.
 
-## Supported Platforms (Planned)
+## Supported Platforms
 
-- DeepSeek
-- ChatGPT
-- Gemini
+- ✅ DeepSeek
+- ✅ Google AI Studio
+- 🚧 ChatGPT (Planned)
+- 🚧 Gemini (Planned)
 - And more...
 
 ## Design & Usage

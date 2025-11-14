@@ -9,6 +9,7 @@
   ],
   "host_permissions": [
     "https://*.deepseek.com/*",
+    "https://aistudio.google.com/*",
     "https://chat.openai.com/*",
     "https://gemini.google.com/*"
   ],
@@ -19,6 +20,7 @@
     {
       "matches": [
         "https://*.deepseek.com/*",
+        "https://aistudio.google.com/*",
         "https://chat.openai.com/*",
         "https://gemini.google.com/*"
       ],

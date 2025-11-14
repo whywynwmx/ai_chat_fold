@@ -15,6 +15,13 @@ const siteConfigs = {
     globalControlsSelector: 'div.f8d1e4c0', // The chat title bar
     observerTargetSelector: 'div.ds-scroll-area' // A stable parent for observing mutations
   },
+  aistudio: {
+    chatContainerSelector: 'app-root',
+    answerContainerSelector: 'div.chat-turn-container.model', // AI message container (outer container with model class)
+    answerContentSelector: 'div.turn-content', // The actual content to fold
+    globalControlsSelector: 'ms-chunk-editor ms-toolbar > div', // The toolbar in the chat editor
+    observerTargetSelector: 'app-root' // A stable parent for observing mutations
+  },
   chatgpt: {
     // TODO: Add selectors for ChatGPT
   },
@@ -38,6 +45,9 @@ function detectSite() {
   if (hostname.includes('deepseek.com')) {
     return siteConfigs.deepseek;
   }
+  if (hostname.includes('aistudio.google.com')) {
+    return siteConfigs.aistudio;
+  }
   if (hostname.includes('chat.openai.com')) {
     return siteConfigs.chatgpt;
   }
@@ -59,10 +69,17 @@ function addFoldButton(answerEl) {
   }
 
   console.log('AI Fold Debug: Attempting to add button to answer element:', answerEl);
+  console.log('AI Fold Debug: Using content selector:', currentSiteConfig.answerContentSelector);
 
   // Poll for the content element to appear, as it might render after the container
+  let pollCount = 0;
   const pollForContent = setInterval(() => {
+    pollCount++;
     const contentEl = answerEl.querySelector(currentSiteConfig.answerContentSelector);
+    
+    if (pollCount % 5 === 0) {
+      console.log(`AI Fold Debug: Poll attempt ${pollCount}, found:`, !!contentEl);
+    }
     
     if (contentEl) {
       clearInterval(pollForContent);
@@ -76,6 +93,17 @@ function addFoldButton(answerEl) {
         const isFolded = contentEl.classList.toggle('aifold-folded-content');
         button.textContent = isFolded ? '展开' : '折叠';
         answerEl.classList.toggle('aifold-container-folded');
+        
+        // For AI Studio: also hide the virtual-scroll-container to collapse the placeholder div
+        if (currentSiteConfig === siteConfigs.aistudio) {
+          const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
+          if (virtualScrollContainer) {
+            virtualScrollContainer.classList.toggle('aifold-folded-content');
+            console.log('AI Fold Debug: Toggled virtual-scroll-container, folded:', isFolded);
+          } else {
+            console.log('AI Fold Debug: virtual-scroll-container not found');
+          }
+        }
       });
 
       // Prepend the button to the answer container for visibility
@@ -96,18 +124,36 @@ function addFoldButton(answerEl) {
  */
 
 function addGlobalControls() {
-
-  const targetEl = document.querySelector(currentSiteConfig.globalControlsSelector);
-
-  console.log('AI Fold Debug: Searching for global controls container', currentSiteConfig.globalControlsSelector, 'Found:', !!targetEl);
-
-  if (!targetEl) {
-
-    console.error('AI Fold: Global controls target element not found.');
-
+  // Prevent adding duplicate controls
+  if (document.querySelector('.aifold-global-controls')) {
+    console.log('AI Fold Debug: Global controls already exist, skipping.');
     return;
-
   }
+
+  // Poll for the target element (especially for AI Studio where toolbar loads later)
+  let pollCount = 0;
+  const maxPolls = 50; // 10 seconds max
+  
+  const pollForTarget = setInterval(() => {
+    pollCount++;
+    const targetEl = document.querySelector(currentSiteConfig.globalControlsSelector);
+
+    if (pollCount % 10 === 0) {
+      console.log(`AI Fold Debug: Polling for global controls container (attempt ${pollCount}):`, currentSiteConfig.globalControlsSelector, 'Found:', !!targetEl);
+    }
+
+    if (targetEl) {
+      clearInterval(pollForTarget);
+      console.log('AI Fold Debug: Global controls container found! Adding buttons.');
+      createGlobalControlButtons(targetEl);
+    } else if (pollCount >= maxPolls) {
+      clearInterval(pollForTarget);
+      console.error('AI Fold: Global controls target element not found after polling.');
+    }
+  }, 200);
+}
+
+function createGlobalControlButtons(targetEl) {
 
 
 
@@ -141,6 +187,14 @@ function addGlobalControls() {
 
           if (button) button.textContent = '展开';
 
+          // For AI Studio: also hide the virtual-scroll-container
+          if (currentSiteConfig === siteConfigs.aistudio) {
+            const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
+            if (virtualScrollContainer) {
+              virtualScrollContainer.classList.add('aifold-folded-content');
+            }
+          }
+
         }
 
       });
@@ -173,6 +227,14 @@ function addGlobalControls() {
 
           if (button) button.textContent = '折叠';
 
+          // For AI Studio: also show the virtual-scroll-container
+          if (currentSiteConfig === siteConfigs.aistudio) {
+            const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
+            if (virtualScrollContainer) {
+              virtualScrollContainer.classList.remove('aifold-folded-content');
+            }
+          }
+
         }
 
       });
@@ -187,9 +249,13 @@ function addGlobalControls() {
 
 
 
-  // Using prepend to make it appear at the top of the container
+  // For AI Studio toolbar, append to the end; for others, prepend to the top
 
-  targetEl.prepend(controlsContainer);
+  if (currentSiteConfig === siteConfigs.aistudio) {
+    targetEl.appendChild(controlsContainer);
+  } else {
+    targetEl.prepend(controlsContainer);
+  }
 
 }
 
@@ -208,6 +274,7 @@ function addGlobalControls() {
 function handleMutations(mutationsList) {
 
   console.log(`AI Fold Debug: MutationObserver detected ${mutationsList.length} mutations.`);
+  console.log('AI Fold Debug: Current answer container selector:', currentSiteConfig.answerContainerSelector);
 
   for (const mutation of mutationsList) {
 
@@ -218,10 +285,12 @@ function handleMutations(mutationsList) {
       mutation.addedNodes.forEach(node => {
 
         if (node.nodeType === Node.ELEMENT_NODE) {
+          
+          console.log('AI Fold Debug: Checking node:', node.tagName, node.className);
 
           // Check if the added node itself is an answer container
 
-          if (node.matches(currentSiteConfig.answerContainerSelector)) {
+          if (node.matches && node.matches(currentSiteConfig.answerContainerSelector)) {
 
             console.log('AI Fold Debug: Added node is an answer container. Adding button.', node);
 
@@ -283,7 +352,11 @@ function initialize() {
 
   const initialAnswers = document.querySelectorAll(currentSiteConfig.answerContainerSelector);
 
-  console.log(`AI Fold Debug: Found ${initialAnswers.length} existing answer containers on init.`);
+  console.log(`AI Fold Debug: Found ${initialAnswers.length} existing answer containers on init using selector: ${currentSiteConfig.answerContainerSelector}`);
+  
+  if (initialAnswers.length > 0) {
+    console.log('AI Fold Debug: First answer element:', initialAnswers[0]);
+  }
 
   initialAnswers.forEach(addFoldButton);
 
