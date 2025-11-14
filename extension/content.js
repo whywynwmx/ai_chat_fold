@@ -12,7 +12,8 @@ const siteConfigs = {
     chatContainerSelector: 'div.dad65929',
     answerContainerSelector: 'div.ds-message:has(div.ds-markdown)', // AI message container
     answerContentSelector: 'div.ds-markdown', // The actual content to fold
-    globalControlsSelector: 'div.f8d1e4c0' // The chat title bar
+    globalControlsSelector: 'div.f8d1e4c0', // The chat title bar
+    observerTargetSelector: 'div.ds-scroll-area' // A stable parent for observing mutations
   },
   chatgpt: {
     // TODO: Add selectors for ChatGPT
@@ -276,35 +277,33 @@ function initialize() {
 
 
 
+  // --- Initial Scan ---
+
   // Find existing answers and add buttons
 
-  const existingAnswers = document.querySelectorAll(currentSiteConfig.answerContainerSelector);
+  const initialAnswers = document.querySelectorAll(currentSiteConfig.answerContainerSelector);
 
-  console.log(`AI Fold Debug: Found ${existingAnswers.length} existing answer containers on init.`);
+  console.log(`AI Fold Debug: Found ${initialAnswers.length} existing answer containers on init.`);
 
-  existingAnswers.forEach(addFoldButton);
+  initialAnswers.forEach(addFoldButton);
 
 
 
-  // Set up a MutationObserver to watch for new chat messages
+  // --- Observer for Real-time Additions ---
 
-  const chatContainer = document.querySelector(currentSiteConfig.chatContainerSelector);
+  const observerTarget = document.querySelector(currentSiteConfig.observerTargetSelector || currentSiteConfig.chatContainerSelector);
 
-  if (!chatContainer) {
+  if (!observerTarget) {
 
-    // This should not happen if polling is correct, but as a safeguard:
-
-    console.error('AI Fold: Chat container not found after polling.');
+    console.error('AI Fold: Observer target not found after polling.');
 
     return;
 
   }
 
-
-
   observer = new MutationObserver(handleMutations);
 
-  observer.observe(chatContainer, {
+  observer.observe(observerTarget, {
 
     childList: true,
 
@@ -314,7 +313,21 @@ function initialize() {
 
   
 
-  console.log('AI Chat Fold/Unfold initialized for:', window.location.hostname);
+  // --- Polling for Resilience ---
+
+  // This acts as a fallback for SPA navigations that might replace the observer target.
+
+  setInterval(() => {
+
+    const allAnswers = document.querySelectorAll(currentSiteConfig.answerContainerSelector);
+
+    allAnswers.forEach(addFoldButton);
+
+  }, 2000); // Rescan every 2 seconds
+
+
+
+  console.log('AI Chat Fold/Unfold initialized for:', window.location.hostname, 'on observer target:', observerTarget);
 
 }
 
@@ -334,23 +347,29 @@ function start() {
 
   currentSiteConfig = detectSite();
 
-  if (!currentSiteConfig || !currentSiteConfig.chatContainerSelector) {
+  if (!currentSiteConfig) {
 
-    return; // Not a supported site or config is incomplete
+    return; // Not a supported site
 
   }
 
 
 
-  console.log('AI Fold Debug: Polling for chat container:', currentSiteConfig.chatContainerSelector);
+  const pollSelector = currentSiteConfig.observerTargetSelector || currentSiteConfig.chatContainerSelector;
+
+  if (!pollSelector) return;
+
+
+
+  console.log('AI Fold Debug: Polling for main container:', pollSelector);
 
   const polling = setInterval(() => {
 
-    const container = document.querySelector(currentSiteConfig.chatContainerSelector);
+    const container = document.querySelector(pollSelector);
 
     if (container) {
 
-      console.log('AI Fold Debug: Chat container found! Initializing.');
+      console.log('AI Fold Debug: Main container found! Initializing.');
 
       clearInterval(polling);
 
