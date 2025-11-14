@@ -1,0 +1,240 @@
+AI Fold Debug: Polling for chat container: div.dad65929
+content.js:361 AI Fold Debug: Chat container found! Initializing.
+content.js:101 AI Fold Debug: Searching for global controls container div.c3ecdb44 Found: true
+content.js:291 AI Fold Debug: Found 5 existing answer containers on init.
+content.js:60 AI Fold Debug: Attempting to add button to answer element (and assuming it is a shadow host): <div class=​"_11d6b3a">​…​</div>​flex
+content.js:60 AI Fold Debug: Attempting to add button to answer element (and assuming it is a shadow host): <div class=​"_11d6b3a">​…​</div>​flex
+content.js:60 AI Fold Debug: Attempting to add button to answer element (and assuming it is a shadow host): <div class=​"_11d6b3a">​…​</div>​flex
+content.js:60 AI Fold Debug: Attempting to add button to answer element (and assuming it is a shadow host): <div class=​"_11d6b3a">​…​</div>​flex
+content.js:60 AI Fold Debug: Attempting to add button to answer element (and assuming it is a shadow host): <div class=​"_11d6b3a">​…​</div>​flex
+content.js:325 AI Chat Fold/Unfold initialized for: chat.deepseek.com
+index-d9d7cc0b.js:1 Could not find "window.__TAURI_METADATA__". The "appWindow" value will reference the "main" window label.
+Note that this is not an issue if running this frontend on a browser instead of a Tauri window.
+(anonymous) @ index-d9d7cc0b.js:1
+index-d9d7cc0b.js:1 Could not find "window.__TAURI_METADATA__". The "appWindow" value will reference the "main" window label.
+Note that this is not an issue if running this frontend on a browser instead of a Tauri window.
+(anonymous) @ index-d9d7cc0b.js:1
+Translator-81d2aa08.js:352 Warning: KaTeX doesn't work in quirks mode. Make sure your website has a suitable doctype.
+(anonymous) @ Translator-81d2aa08.js:352
+(anonymous) @ Translator-81d2aa08.js:352
+(anonymous) @ Translator-81d2aa08.js:122
+(anonymous) @ Translator-81d2aa08.js:122
+uC1 @ Translator-81d2aa08.js:122
+(anonymous) @ Translator-81d2aa08.js:122
+frame-modern.baad27b8.js:1 [Intercom] Launcher is disabled in settings or current page does not match display conditions
+index-577fd2a8.js:1 [Violation] Added non-passive event listener to a scroll-blocking 'touchstart' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+vr @ index-577fd2a8.js:1
+kt @ index-577fd2a8.js:1
+te @ index-577fd2a8.js:1
+yi @ index-577fd2a8.js:5
+o @ index-577fd2a8.js:5
+index-577fd2a8.js:1 [Violation] Added non-passive event listener to a scroll-blocking 'touchstart' event. Consider marking event handler as 'passive' to make the page more responsive. See https://www.chromestatus.com/feature/5745543795965952
+vr @ index-577fd2a8.js:1
+kt @ index-577fd2a8.js:1
+sn @ index-577fd2a8.js:1
+kn @ index-577fd2a8.js:5
+o @ index-577fd2a8.js:5
+content_script.js:7465  GET https://s.immersivetranslate.com/assets/r2-uploads/APPDownloadQRCode.svg net::ERR_CONNECTION_CLOSED
+(anonymous) @ content_script.js:7465
+Promise.then
+(anonymous) @ content_script.js:7465
+T4 @ content_script.js:7223
+UO @ content_script.js:7223
+setTimeout
+n @ content_script.js:7223
+requestAnimationFrame
+zO @ content_script.js:7223
+ze.diffed @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+(anonymous) @ content_script.js:7223
+om @ content_script.js:7223
+setTimeout
+C4 @ content_script.js:7223
+Zl.setState @ content_script.js:7223
+r.__c.r.__ @ content_script.js:7223
+(anonymous) @ content_script.js:7469
+Promise.then
+(anonymous) @ content_script.js:7469
+T4 @ content_script.js:7223
+UO @ content_script.js:7223
+setTimeout
+n @ content_script.js:7223
+requestAnimationFrame
+zO @ content_script.js:7223
+ze.diffed @ content_script.js:7223
+v4 @ content_script.js:7223
+(anonymous) @ content_script.js:7223
+om @ content_script.js:7223
+setTimeout
+C4 @ content_script.js:7223
+Zl.setState @ content_script.js:7223
+r.__c.r.__ @ content_script.js:7223
+(anonymous) @ content_script.js:7465
+Promise.then
+(anonymous) @ content_script.js:7465
+T4 @ content_script.js:7223
+UO @ content_script.js:7223
+setTimeout
+n @ content_script.js:7223
+requestAnimationFrame
+zO @ content_script.js:7223
+ze.diffed @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+ki @ content_script.js:7223
+nK @ content_script.js:7837
+k9 @ content_script.js:7836
+await in k9
+dg @ content_script.js:7837
+await in dg
+pM @ content_script.js:7838
+xD @ content_script.js:10507
+(anonymous) @ content_script.js:10509
+Promise.then
+(anonymous) @ content_script.js:10509
+Promise.then
+HZ @ content_script.js:10509
+await in HZ
+(anonymous) @ content_script.js:10509
+(anonymous) @ content_script.js:10509
+content_script.js:7202 Uncaught (in promise) fetchError: Failed to fetch
+    at Y8 (content_script.js:7202:119681)
+    at Kf.sendMessage (content_script.js:7202:119110)
+    at async Bj (content_script.js:7243:4878)
+    at async Pj (content_script.js:7243:4500)
+Y8 @ content_script.js:7202
+sendMessage @ content_script.js:7202
+await in sendMessage
+rt @ content_script.js:7224
+Ie @ content_script.js:7224
+Bj @ content_script.js:7243
+Pj @ content_script.js:7243
+await in Pj
+V @ content_script.js:7195
+ie @ content_script.js:7195
+Y @ content_script.js:7195
+setTimeout
+z @ content_script.js:7195
+Ce @ content_script.js:7195
+(anonymous) @ content_script.js:7354
+Promise.then
+(anonymous) @ content_script.js:7354
+T4 @ content_script.js:7223
+UO @ content_script.js:7223
+setTimeout
+n @ content_script.js:7223
+requestAnimationFrame
+zO @ content_script.js:7223
+ze.diffed @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+(anonymous) @ content_script.js:7223
+om @ content_script.js:7223
+setTimeout
+C4 @ content_script.js:7223
+Zl.setState @ content_script.js:7223
+r.__c.r.__ @ content_script.js:7223
+(anonymous) @ content_script.js:7469
+Promise.then
+(anonymous) @ content_script.js:7469
+T4 @ content_script.js:7223
+UO @ content_script.js:7223
+setTimeout
+n @ content_script.js:7223
+requestAnimationFrame
+zO @ content_script.js:7223
+ze.diffed @ content_script.js:7223
+v4 @ content_script.js:7223
+(anonymous) @ content_script.js:7223
+om @ content_script.js:7223
+setTimeout
+C4 @ content_script.js:7223
+Zl.setState @ content_script.js:7223
+r.__c.r.__ @ content_script.js:7223
+(anonymous) @ content_script.js:7465
+Promise.then
+(anonymous) @ content_script.js:7465
+T4 @ content_script.js:7223
+UO @ content_script.js:7223
+setTimeout
+n @ content_script.js:7223
+requestAnimationFrame
+zO @ content_script.js:7223
+ze.diffed @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+OO @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+G7 @ content_script.js:7223
+v4 @ content_script.js:7223
+ki @ content_script.js:7223
+nK @ content_script.js:7837
+k9 @ content_script.js:7836
+await in k9
+dg @ content_script.js:7837
+await in dg
+pM @ content_script.js:7838
+xD @ content_script.js:10507
+(anonymous) @ content_script.js:10509
+Promise.then
+(anonymous) @ content_script.js:10509
+Promise.then
+HZ @ content_script.js:10509
+await in HZ
+(anonymous) @ content_script.js:10509
+(anonymous) @ content_script.js:10509

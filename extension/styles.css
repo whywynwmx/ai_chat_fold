@@ -1,0 +1,66 @@
+/* 
+  AI Chat Fold/Unfold - styles.css
+  Styles for the injected UI elements.
+*/
+
+/* Button for folding a single answer */
+.aifold-fold-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 100;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #4a5568;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Show button on hover of the parent container */
+div.ds-message:hover .aifold-fold-button {
+  opacity: 1;
+}
+
+.aifold-fold-button:hover {
+  background-color: #2d3748;
+}
+
+/* Class to hide the content */
+.aifold-folded-content {
+  display: none;
+}
+
+/* Optional: Add a visual indicator to the folded container */
+.aifold-container-folded {
+  min-height: 40px; /* Ensure the container doesn't collapse completely */
+  border-left: 3px solid #4a5568;
+}
+
+/* Styles for global controls */
+.aifold-global-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto; /* Pushes the controls to the right */
+}
+
+.aifold-global-button {
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #4a5568;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.aifold-global-button:hover {
+  background-color: #2d3748;
+  opacity: 1;
+}
