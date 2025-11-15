@@ -26,8 +26,20 @@ This approach is preferred over a separate popup window to provide a more seamle
 
 ## Installation
 
-(Instructions to be added once the extension is packaged.)
+1. Clone this repository
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable "Developer mode" in the top right
+4. Click "Load unpacked"
+5. Select the `extension` folder from this project
 
 ## Development
 
-(Instructions for setting up the development environment will be added here.)
+### Local Setup
+
+1. Make changes to files in the `extension` folder
+2. Reload the extension in `chrome://extensions/`
+3. Refresh the target web page to see changes
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
