@@ -86,7 +86,9 @@ function addFoldButton(answerEl) {
         
         // If there are multiple blocks, add individual fold buttons for each
         if (allContentElements.length > 1) {
-          allContentElements.forEach((contentEl, index) => {
+          // Reverse the content array so first button controls thinking (last element), second controls answer (first element)
+          const reversedElements = Array.from(allContentElements).reverse();
+          reversedElements.forEach((contentEl, index) => {
             addIndividualFoldButton(contentEl, index, allContentElements.length);
           });
           return;
@@ -154,29 +156,9 @@ function addIndividualFoldButton(contentEl, index, total) {
 
   const button = document.createElement('button');
   
-  // Try to determine the type of content for better button labels
-  let foldLabel = '折叠';
-  let unfoldLabel = '展开';
-  const contentText = contentEl.textContent || '';
-  const contentClasses = contentEl.className || '';
-  
-  // Check if this looks like a thinking/reasoning block (first block is usually thinking)
-  if (index === 0 && total > 1) {
-    // First block when there are multiple blocks is usually thinking
-    foldLabel = '折叠思考';
-    unfoldLabel = '展开思考';
-  } else if (contentText.includes('思考') || contentText.includes('分析') || contentText.includes('推理') ||
-      contentClasses.includes('thinking') || contentClasses.includes('reason')) {
-    foldLabel = '折叠思考';
-    unfoldLabel = '展开思考';
-  } else if (index === total - 1 && total > 1) {
-    // Last block when there are multiple blocks is usually the final answer
-    foldLabel = '折叠回答';
-    unfoldLabel = '展开回答';
-  } else if (total > 1) {
-    foldLabel = `折叠 ${index + 1}`;
-    unfoldLabel = `展开 ${index + 1}`;
-  }
+  // Simple labels for all buttons - just "折叠"/"展开"
+  const foldLabel = '折叠';
+  const unfoldLabel = '展开';
   
   button.textContent = foldLabel;
   button.className = `aifold-fold-button aifold-fold-button-${index}`;
