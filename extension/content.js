@@ -75,6 +75,27 @@ function addFoldButton(answerEl) {
   let pollCount = 0;
   const pollForContent = setInterval(() => {
     pollCount++;
+    
+    // For DeepSeek: check if there are multiple foldable sections (thinking + answer)
+    if (currentSiteConfig === siteConfigs.deepseek) {
+      const allContentElements = answerEl.querySelectorAll(currentSiteConfig.answerContentSelector);
+      
+      if (allContentElements.length > 0) {
+        clearInterval(pollForContent);
+        console.log(`AI Fold Debug: Found ${allContentElements.length} content elements to fold in answer`);
+        
+        // If there are multiple blocks, add individual fold buttons for each
+        if (allContentElements.length > 1) {
+          allContentElements.forEach((contentEl, index) => {
+            addIndividualFoldButton(contentEl, index, allContentElements.length);
+          });
+          return;
+        }
+        // Otherwise, fall through to single button logic
+      }
+    }
+    
+    // For other sites or single content blocks
     const contentEl = answerEl.querySelector(currentSiteConfig.answerContentSelector);
     
     if (pollCount % 5 === 0) {
@@ -115,6 +136,66 @@ function addFoldButton(answerEl) {
   setTimeout(() => {
     clearInterval(pollForContent);
   }, 5000);
+}
+
+/**
+ * Adds a fold button for an individual content block (e.g., thinking or answer)
+ * @param {HTMLElement} contentEl - The content element to fold
+ * @param {number} index - Index of this content block
+ * @param {number} total - Total number of content blocks
+ */
+function addIndividualFoldButton(contentEl, index, total) {
+  // Check if this content block already has a button
+  const parent = contentEl.parentElement;
+  const existingButton = parent.querySelector(`.aifold-fold-button-${index}`);
+  if (existingButton) {
+    return;
+  }
+
+  const button = document.createElement('button');
+  
+  // Try to determine the type of content for better button labels
+  let foldLabel = '折叠';
+  let unfoldLabel = '展开';
+  const contentText = contentEl.textContent || '';
+  const contentClasses = contentEl.className || '';
+  
+  // Check if this looks like a thinking/reasoning block (first block is usually thinking)
+  if (index === 0 && total > 1) {
+    // First block when there are multiple blocks is usually thinking
+    foldLabel = '折叠思考';
+    unfoldLabel = '展开思考';
+  } else if (contentText.includes('思考') || contentText.includes('分析') || contentText.includes('推理') ||
+      contentClasses.includes('thinking') || contentClasses.includes('reason')) {
+    foldLabel = '折叠思考';
+    unfoldLabel = '展开思考';
+  } else if (index === total - 1 && total > 1) {
+    // Last block when there are multiple blocks is usually the final answer
+    foldLabel = '折叠回答';
+    unfoldLabel = '展开回答';
+  } else if (total > 1) {
+    foldLabel = `折叠 ${index + 1}`;
+    unfoldLabel = `展开 ${index + 1}`;
+  }
+  
+  button.textContent = foldLabel;
+  button.className = `aifold-fold-button aifold-fold-button-${index}`;
+  button.style.marginRight = '8px';
+  
+  // Store the labels as data attributes for reliable toggling
+  button.dataset.foldLabel = foldLabel;
+  button.dataset.unfoldLabel = unfoldLabel;
+  
+  button.addEventListener('click', () => {
+    const isFolded = contentEl.classList.toggle('aifold-folded-content');
+    
+    // Update button text using stored labels
+    button.textContent = isFolded ? button.dataset.unfoldLabel : button.dataset.foldLabel;
+  });
+
+  // Insert button before the content element
+  parent.insertBefore(button, contentEl);
+  console.log(`AI Fold Debug: Added fold button for content block ${index + 1}/${total}: "${foldLabel}"`, contentEl);
 }
 
 /**
@@ -175,27 +256,35 @@ function createGlobalControlButtons(targetEl) {
 
       allAnswers.forEach(answerEl => {
 
-        const contentEl = answerEl.querySelector(currentSiteConfig.answerContentSelector);
+        // Handle multiple content blocks in the same answer (e.g., thinking + answer)
+        const allContentElements = answerEl.querySelectorAll(currentSiteConfig.answerContentSelector);
 
-        const button = answerEl.querySelector('.aifold-fold-button');
+        allContentElements.forEach((contentEl, index) => {
 
-        if (contentEl && !contentEl.classList.contains('aifold-folded-content')) {
+          const button = answerEl.querySelector(`.aifold-fold-button-${index}`) || answerEl.querySelector('.aifold-fold-button');
 
-          contentEl.classList.add('aifold-folded-content');
+          if (contentEl && !contentEl.classList.contains('aifold-folded-content')) {
 
-          answerEl.classList.add('aifold-container-folded');
+            contentEl.classList.add('aifold-folded-content');
 
-          if (button) button.textContent = '展开';
+            answerEl.classList.add('aifold-container-folded');
 
-          // For AI Studio: also hide the virtual-scroll-container
-          if (currentSiteConfig === siteConfigs.aistudio) {
-            const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
-            if (virtualScrollContainer) {
-              virtualScrollContainer.classList.add('aifold-folded-content');
+            if (button) {
+              // Use stored labels if available, otherwise replace text
+              button.textContent = button.dataset.unfoldLabel || button.textContent.replace('折叠', '展开');
             }
+
+            // For AI Studio: also hide the virtual-scroll-container
+            if (currentSiteConfig === siteConfigs.aistudio) {
+              const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
+              if (virtualScrollContainer) {
+                virtualScrollContainer.classList.add('aifold-folded-content');
+              }
+            }
+
           }
 
-        }
+        });
 
       });
 
@@ -215,27 +304,35 @@ function createGlobalControlButtons(targetEl) {
 
       allAnswers.forEach(answerEl => {
 
-        const contentEl = answerEl.querySelector(currentSiteConfig.answerContentSelector);
+        // Handle multiple content blocks in the same answer (e.g., thinking + answer)
+        const allContentElements = answerEl.querySelectorAll(currentSiteConfig.answerContentSelector);
 
-        const button = answerEl.querySelector('.aifold-fold-button');
+        allContentElements.forEach((contentEl, index) => {
 
-        if (contentEl && contentEl.classList.contains('aifold-folded-content')) {
+          const button = answerEl.querySelector(`.aifold-fold-button-${index}`) || answerEl.querySelector('.aifold-fold-button');
 
-          contentEl.classList.remove('aifold-folded-content');
+          if (contentEl && contentEl.classList.contains('aifold-folded-content')) {
 
-          answerEl.classList.remove('aifold-container-folded');
+            contentEl.classList.remove('aifold-folded-content');
 
-          if (button) button.textContent = '折叠';
+            answerEl.classList.remove('aifold-container-folded');
 
-          // For AI Studio: also show the virtual-scroll-container
-          if (currentSiteConfig === siteConfigs.aistudio) {
-            const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
-            if (virtualScrollContainer) {
-              virtualScrollContainer.classList.remove('aifold-folded-content');
+            if (button) {
+              // Use stored labels if available, otherwise replace text
+              button.textContent = button.dataset.foldLabel || button.textContent.replace('展开', '折叠');
             }
+
+            // For AI Studio: also show the virtual-scroll-container
+            if (currentSiteConfig === siteConfigs.aistudio) {
+              const virtualScrollContainer = contentEl.closest('.virtual-scroll-container');
+              if (virtualScrollContainer) {
+                virtualScrollContainer.classList.remove('aifold-folded-content');
+              }
+            }
+
           }
 
-        }
+        });
 
       });
 
