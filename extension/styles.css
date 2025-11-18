@@ -20,6 +20,15 @@
   transition: opacity 0.2s ease-in-out;
 }
 
+/* For multiple buttons (e.g., thinking + answer in DeepSeek) */
+.aifold-fold-button.aifold-fold-button-0 {
+  right: 90px; /* First button offset */
+}
+
+.aifold-fold-button.aifold-fold-button-1 {
+  right: 8px; /* Second button at normal position */
+}
+
 /* Show button on hover of the parent container */
 div.ds-message:hover .aifold-fold-button,
 div.chat-turn-container:hover .aifold-fold-button {
