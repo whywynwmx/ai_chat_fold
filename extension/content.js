@@ -77,24 +77,29 @@ function detectSite() {
  * @param {HTMLElement} answerEl - The DOM element containing the AI answer.
  */
 function addFoldButton(answerEl) {
-  console.log('[AI Fold] addFoldButton called for:', answerEl);
-  
   // Prevent adding a button if one already exists (check both button and marker)
   if (answerEl.dataset.aifoldProcessed === 'true') {
-    console.log('[AI Fold] Already processed, skipping');
     return;
   }
   
-  const existingButton = answerEl.querySelector('.aifold-fold-button');
+  // Check if button exists in answerEl or its parent (for Qwen.ai case)
+  let existingButton = answerEl.querySelector('.aifold-fold-button');
+  if (!existingButton && answerEl.parentElement) {
+    // Check if button was added to parent element (for Qwen.ai)
+    const siblings = Array.from(answerEl.parentElement.children);
+    const answerIndex = siblings.indexOf(answerEl);
+    if (answerIndex > 0 && siblings[answerIndex - 1].classList.contains('aifold-fold-button')) {
+      existingButton = siblings[answerIndex - 1];
+    }
+  }
+  
   if (existingButton) {
-    console.log('[AI Fold] Button already exists, skipping');
     answerEl.dataset.aifoldProcessed = 'true'; // Add marker
     return;
   }
   
   // Mark this answer as being processed
   answerEl.dataset.aifoldProcessed = 'true';
-  console.log('[AI Fold] Processing answer container');
 
   // Poll for the content element to appear, as it might render after the container
   let pollCount = 0;
@@ -126,16 +131,12 @@ function addFoldButton(answerEl) {
     let contentEl;
     if (currentSiteConfig.answerContainerSelector === currentSiteConfig.answerContentSelector) {
       contentEl = answerEl;
-      console.log('[AI Fold] Container and content are the same, using answerEl directly');
     } else {
       contentEl = answerEl.querySelector(currentSiteConfig.answerContentSelector);
-      console.log('[AI Fold] Looking for content with selector:', currentSiteConfig.answerContentSelector);
-      console.log('[AI Fold] Found contentEl:', contentEl);
     }
     
     if (contentEl) {
       clearInterval(pollForContent);
-      console.log('[AI Fold] Content found! Creating button...');
 
       const button = document.createElement('button');
       const foldLabel = '折叠';
@@ -168,16 +169,19 @@ function addFoldButton(answerEl) {
         // If folding the container itself, add button to parent (before the container)
         const parent = answerEl.parentElement;
         if (parent) {
-          parent.insertBefore(button, answerEl);
-          console.log('[AI Fold] Button added to parent before answerEl');
+          // Check if parent already has a button to prevent duplicates
+          const existingButtonInParent = parent.querySelector('.aifold-fold-button');
+          if (!existingButtonInParent) {
+            parent.insertBefore(button, answerEl);
+            // Mark parent as processed too
+            parent.dataset.aifoldProcessed = 'true';
+          }
         } else {
-          console.warn('[AI Fold] No parent element found, prepending to answerEl');
           answerEl.prepend(button);
         }
       } else {
         // Normal case: prepend button to answer container
         answerEl.prepend(button);
-        console.log('[AI Fold] Button added successfully to:', answerEl);
       }
     }
   }, 200); // Check every 200ms
@@ -581,6 +585,18 @@ function initialize() {
     const allAnswers = document.querySelectorAll(currentSiteConfig.answerContainerSelector);
 
     allAnswers.forEach(addFoldButton);
+    
+    // Also check if global controls are still present
+    if (currentSiteConfig.globalControlsSelector) {
+      const targetEl = document.querySelector(currentSiteConfig.globalControlsSelector);
+      if (targetEl) {
+        const existingControls = targetEl.querySelector('.aifold-global-controls');
+        if (!existingControls) {
+          console.log('[AI Fold] Global controls missing, re-adding...');
+          addGlobalControls();
+        }
+      }
+    }
 
   }, 2000); // Rescan every 2 seconds
 
