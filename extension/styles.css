@@ -77,6 +77,18 @@ div.chat-turn-container:hover .aifold-fold-button {
   opacity: 1;
 }
 
+/* DeepSeek specific styles */
+div.f8d1e4c0 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+div.f8d1e4c0 .aifold-global-controls {
+  margin-left: auto;
+  margin-right: 16px;
+}
+
 /* AI Studio specific styles */
 div.chat-turn-container.model {
   position: relative;

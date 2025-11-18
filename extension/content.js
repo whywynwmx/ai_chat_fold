@@ -351,13 +351,9 @@ function createGlobalControlButtons(targetEl) {
 
 
 
-  // For AI Studio toolbar, append to the end; for others, prepend to the top
+  // Append to the end for both AI Studio and DeepSeek to show in the toolbar
 
-  if (currentSiteConfig === siteConfigs.aistudio) {
-    targetEl.appendChild(controlsContainer);
-  } else {
-    targetEl.prepend(controlsContainer);
-  }
+  targetEl.appendChild(controlsContainer);
 
 }
 
