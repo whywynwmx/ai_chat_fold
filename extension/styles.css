@@ -31,7 +31,8 @@
 
 /* Show button on hover of the parent container */
 div.ds-message:hover .aifold-fold-button,
-div.chat-turn-container:hover .aifold-fold-button {
+div.chat-turn-container:hover .aifold-fold-button,
+model-response:hover .aifold-fold-button {
   opacity: 1;
 }
 
@@ -97,4 +98,27 @@ div.chat-turn-container.model {
 /* Ensure AI Studio's fold button is visible above other elements */
 div.chat-turn-container.model .aifold-fold-button {
   z-index: 1000;
+}
+
+/* Gemini specific styles */
+model-response {
+  position: relative;
+}
+
+/* Ensure Gemini's fold button is visible above other elements */
+model-response .aifold-fold-button {
+  z-index: 1000;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.left-section .aifold-global-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 16px;
 }

@@ -26,7 +26,11 @@ const siteConfigs = {
     // TODO: Add selectors for ChatGPT
   },
   gemini: {
-    // TODO: Add selectors for Gemini
+    chatContainerSelector: 'chat-app',
+    answerContainerSelector: 'model-response', // Gemini AI response container
+    answerContentSelector: 'message-content', // The actual content to fold
+    globalControlsSelector: '.left-section', // Left section of the toolbar
+    observerTargetSelector: 'chat-app' // Root container for observing mutations
   }
 };
 
