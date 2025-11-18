@@ -32,7 +32,8 @@
 /* Show button on hover of the parent container */
 div.ds-message:hover .aifold-fold-button,
 div.chat-turn-container:hover .aifold-fold-button,
-model-response:hover .aifold-fold-button {
+model-response:hover .aifold-fold-button,
+.response-message-body:hover .aifold-fold-button {
   opacity: 1;
 }
 
@@ -116,6 +117,25 @@ model-response .aifold-fold-button {
 }
 
 .left-section .aifold-global-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+/* Qwen.ai specific styles */
+.response-message-body {
+  position: relative;
+}
+
+/* Ensure Qwen.ai's fold button is visible above other elements */
+.response-message-body .aifold-fold-button {
+  z-index: 1000;
+}
+
+/* Qwen.ai global controls */
+.flex.w-full.items-start .aifold-global-controls {
   display: flex;
   gap: 8px;
   align-items: center;
