@@ -16,6 +16,7 @@ A Chrome extension to easily fold and unfold conversations in AI chat interfaces
 - ✅ Qwen.ai
 - ✅ ChatGPT
 - ✅ Claude.ai
+- ✅ Grok
 - And more...
 
 ## Design & Usage

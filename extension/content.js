@@ -49,6 +49,13 @@ const siteConfigs = {
     answerContentSelector: '.whitespace-pre-wrap, [class*="markdown"]', // The actual content to fold
     globalControlsSelector: 'header .flex.w-full.items-center.justify-between', // Header controls container (must be in header)
     observerTargetSelector: 'body' // Body element for observing mutations
+  },
+  grok: {
+    chatContainerSelector: 'body',
+    answerContainerSelector: '.items-start .message-bubble', // Grok AI message container (only AI messages, not user messages)
+    answerContentSelector: '.prose, [class*="markdown"]', // The actual content to fold
+    globalControlsSelector: '.h-16.top-0.absolute.z-10.flex.flex-row', // Top bar container
+    observerTargetSelector: 'body' // Body element for observing mutations
   }
 };
 
@@ -81,6 +88,9 @@ function detectSite() {
   }
   if (hostname.includes('claude.ai')) {
     return siteConfigs.claude;
+  }
+  if (hostname.includes('grok.com')) {
+    return siteConfigs.grok;
   }
   return null;
 }
@@ -448,6 +458,15 @@ function createGlobalControlButtons(targetEl) {
   } else if (currentSiteConfig === siteConfigs.claude) {
     // Claude: insert before the .right-3.flex.gap-2 element
     const rightSection = targetEl.querySelector('.right-3.flex.gap-2');
+    if (rightSection) {
+      targetEl.insertBefore(controlsContainer, rightSection);
+    } else {
+      // Fallback: insert at the end
+      targetEl.appendChild(controlsContainer);
+    }
+  } else if (currentSiteConfig === siteConfigs.grok) {
+    // Grok: insert before the .absolute.flex.flex-row.items-center.gap-0.5.ms-auto.end-3 element
+    const rightSection = targetEl.querySelector('.absolute.flex.flex-row.items-center.ms-auto.end-3');
     if (rightSection) {
       targetEl.insertBefore(controlsContainer, rightSection);
     } else {

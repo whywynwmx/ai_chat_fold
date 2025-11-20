@@ -225,3 +225,44 @@ header .aifold-global-button:hover {
   background-color: rgba(0, 0, 0, 0.1);
   border-color: rgba(0, 0, 0, 0.2);
 }
+
+/* Grok specific styles - only for AI messages (items-start) */
+.items-start .message-bubble {
+  position: relative;
+}
+
+/* Ensure Grok's fold button is visible above other elements */
+.items-start .message-bubble .aifold-fold-button {
+  z-index: 1000;
+  top: 8px;
+  right: 8px;
+}
+
+/* Show button on hover for Grok */
+.items-start .message-bubble:hover .aifold-fold-button {
+  opacity: 1;
+}
+
+/* Grok global controls in top bar */
+.h-16.top-0.absolute.z-10.flex.flex-row .aifold-global-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.h-16.top-0.absolute.z-10.flex.flex-row .aifold-global-button {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.h-16.top-0.absolute.z-10.flex.flex-row .aifold-global-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
