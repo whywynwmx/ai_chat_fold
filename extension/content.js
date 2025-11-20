@@ -23,7 +23,11 @@ const siteConfigs = {
     observerTargetSelector: 'app-root' // A stable parent for observing mutations
   },
   chatgpt: {
-    // TODO: Add selectors for ChatGPT
+    chatContainerSelector: 'main',
+    answerContainerSelector: '[data-message-author-role="assistant"]', // AI message container (the div with author role)
+    answerContentSelector: '[class*="markdown"]', // The actual content to fold
+    globalControlsSelector: 'header#page-header .flex.items-center.justify-center.gap-3', // Page header toolbar
+    observerTargetSelector: 'main' // Main content area for observing mutations
   },
   gemini: {
     chatContainerSelector: 'chat-app',
@@ -59,7 +63,7 @@ function detectSite() {
   if (hostname.includes('aistudio.google.com')) {
     return siteConfigs.aistudio;
   }
-  if (hostname.includes('chat.openai.com')) {
+  if (hostname.includes('chat.openai.com') || hostname.includes('chatgpt.com')) {
     return siteConfigs.chatgpt;
   }
   if (hostname.includes('gemini.google.com')) {
@@ -427,9 +431,12 @@ function createGlobalControlButtons(targetEl) {
 
 
 
-  // Append to the end for both AI Studio and DeepSeek to show in the toolbar
-
-  targetEl.appendChild(controlsContainer);
+  // Insert at the beginning for ChatGPT (sidebar), at the end for others (toolbar)
+  if (currentSiteConfig === siteConfigs.chatgpt) {
+    targetEl.insertBefore(controlsContainer, targetEl.firstChild);
+  } else {
+    targetEl.appendChild(controlsContainer);
+  }
 
 }
 

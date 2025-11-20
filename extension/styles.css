@@ -33,7 +33,8 @@
 div.ds-message:hover .aifold-fold-button,
 div.chat-turn-container:hover .aifold-fold-button,
 model-response:hover .aifold-fold-button,
-.response-message-body:hover .aifold-fold-button {
+.response-message-body:hover .aifold-fold-button,
+[data-message-author-role="assistant"]:hover .aifold-fold-button {
   opacity: 1;
 }
 
@@ -141,4 +142,44 @@ model-response .aifold-fold-button {
   align-items: center;
   margin-left: auto;
   margin-right: 16px;
+}
+
+/* ChatGPT specific styles */
+[data-message-author-role="assistant"] {
+  position: relative;
+}
+
+/* Ensure ChatGPT's fold button is visible above other elements */
+[data-message-author-role="assistant"] .aifold-fold-button {
+  z-index: 1000;
+  top: 8px;
+  right: 8px;
+}
+
+/* ChatGPT global controls in page header */
+header#page-header .aifold-global-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-right: 12px;
+}
+
+/* ChatGPT global buttons - match header style */
+header#page-header .aifold-global-button {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary, #fff);
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+header#page-header .aifold-global-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.3);
 }

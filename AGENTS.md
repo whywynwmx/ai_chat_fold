@@ -22,3 +22,7 @@ This document outlines the standards and best practices for AI agents contributi
 
 - **User-Centric:** Prioritize a clean, intuitive, and non-intrusive user experience.
 - **Extensible & Maintainable:** Write modular and well-documented code that is easy to understand, modify, and extend in the future.
+
+## Project-Specific Instructions
+
+- Do not perform git operations. The user will handle all git-related tasks.

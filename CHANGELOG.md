@@ -1,5 +1,36 @@
 # 更新日志 / Changelog
 
+## [0.2.5] - 2024-11-20
+
+### 修复 / Fixed
+- 🐛 修正 ChatGPT 选择器配置
+  - 修复主域名 `chatgpt.com` 的匹配问题（之前只匹配子域名）
+  - 将 `answerContainerSelector` 从 `article` 改为 `[data-message-author-role="assistant"]`
+  - 确保按钮正确定位在回答内容的右上角，而不是页面右边
+  - 将全局按钮从侧边栏移至页面顶部 header (`header#page-header`)
+
+### 改进 / Improvements
+- 🎨 优化 ChatGPT 按钮样式
+  - 单个折叠按钮：定位在回答内容容器中
+  - 全局按钮：透明背景，边框样式，与 header 风格一致
+  - 改进 hover 效果
+
+---
+
+## [0.2.4] - 2024-11-20
+
+### 新增功能 / Added
+- ✨ 新增对 ChatGPT 的支持
+  - 支持在 chat.openai.com 页面折叠/展开 AI 回答内容
+  - 添加全局"全部折叠"和"全部展开"按钮（位于侧边栏导航区域）
+  - 使用 `data-testid` 属性选择器确保选择器稳定性
+  - 与其他平台保持一致的用户体验
+
+### 改进 / Improvements
+- 🎨 优化代码结构，清理调试日志
+
+---
+
 ## [0.2.3] - 2024-11-18
 
 ### 新增功能 / Added
