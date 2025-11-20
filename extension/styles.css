@@ -183,3 +183,45 @@ header#page-header .aifold-global-button:hover {
   opacity: 1;
   border-color: rgba(255, 255, 255, 0.3);
 }
+
+/* Claude specific styles */
+.font-claude-response {
+  position: relative;
+}
+
+/* Ensure Claude's fold button is visible above other elements */
+.font-claude-response .aifold-fold-button {
+  z-index: 1000;
+  top: 8px;
+  right: 8px;
+}
+
+/* Show button on hover for Claude */
+.font-claude-response:hover .aifold-fold-button,
+[data-is-streaming]:hover .aifold-fold-button {
+  opacity: 1;
+}
+
+/* Claude global controls in header */
+header .flex.w-full.items-center.justify-between .aifold-global-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-right: 12px;
+}
+
+/* Claude global buttons style */
+header .aifold-global-button {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+header .aifold-global-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}

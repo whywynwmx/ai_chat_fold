@@ -42,6 +42,13 @@ const siteConfigs = {
     answerContentSelector: '.text-response-render-container', // The actual content to fold (the container itself)
     globalControlsSelector: '.flex.w-full.items-start', // Toolbar area
     observerTargetSelector: '#messages-container' // Messages container for observing mutations
+  },
+  claude: {
+    chatContainerSelector: 'body',
+    answerContainerSelector: '.font-claude-response', // Claude AI response container
+    answerContentSelector: '.whitespace-pre-wrap, [class*="markdown"]', // The actual content to fold
+    globalControlsSelector: 'header .flex.w-full.items-center.justify-between', // Header controls container (must be in header)
+    observerTargetSelector: 'body' // Body element for observing mutations
   }
 };
 
@@ -71,6 +78,9 @@ function detectSite() {
   }
   if (hostname.includes('qwen.ai')) {
     return siteConfigs.qwen;
+  }
+  if (hostname.includes('claude.ai')) {
+    return siteConfigs.claude;
   }
   return null;
 }
@@ -431,10 +441,21 @@ function createGlobalControlButtons(targetEl) {
 
 
 
-  // Insert at the beginning for ChatGPT (sidebar), at the end for others (toolbar)
+  // Insert at the appropriate position based on the platform
   if (currentSiteConfig === siteConfigs.chatgpt) {
+    // ChatGPT: insert at the beginning of sidebar
     targetEl.insertBefore(controlsContainer, targetEl.firstChild);
+  } else if (currentSiteConfig === siteConfigs.claude) {
+    // Claude: insert before the .right-3.flex.gap-2 element
+    const rightSection = targetEl.querySelector('.right-3.flex.gap-2');
+    if (rightSection) {
+      targetEl.insertBefore(controlsContainer, rightSection);
+    } else {
+      // Fallback: insert at the end
+      targetEl.appendChild(controlsContainer);
+    }
   } else {
+    // Others: insert at the end
     targetEl.appendChild(controlsContainer);
   }
 

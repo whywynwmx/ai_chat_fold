@@ -1,5 +1,71 @@
 # 更新日志 / Changelog
 
+## [0.2.10] - 2024-11-20
+
+### 修复 / Fixed
+- 🐛 修正 Claude.ai 全局按钮不显示的问题
+  - 选择器从 `.flex.w-full.items-center.justify-between` 改为 `header .flex.w-full.items-center.justify-between`
+  - 确保只选择 header 中的容器（之前匹配了多个元素，第一个不在 header 中）
+  - 更新 CSS 选择器以匹配新的 DOM 结构
+
+---
+
+## [0.2.9] - 2024-11-20
+
+### 改进 / Improvements
+- 🎨 优化 Claude.ai 全局按钮位置
+  - 全局按钮现在显示在 header 工具栏的 share 按钮左侧
+  - 更新 `globalControlsSelector` 为 `.flex.w-full.items-center.justify-between`
+  - 添加专门的插入逻辑，将按钮插入到 `.right-3.flex.gap-2` 之前
+  - 优化按钮样式以匹配 Claude 的界面风格
+
+---
+
+## [0.2.8] - 2024-11-20
+
+### 修复 / Fixed
+- 🐛 修正 Claude.ai 容器选择器
+  - `chatContainerSelector`: `#__next` → `body` (该元素不存在，改用 body)
+  - `observerTargetSelector`: `#__next` → `body`
+  - 其他选择器已验证正确（`.font-claude-response`, `.whitespace-pre-wrap`, `header`）
+
+---
+
+## [0.2.7] - 2024-11-20
+
+### 修复 / Fixed
+- 🐛 修正 Claude.ai 选择器配置（基于实际页面结构）
+  - `chatContainerSelector`: `main` → `#__next` (Next.js 根容器)
+  - `answerContainerSelector`: `[class*="font-claude-message"]` → `.font-claude-response`
+  - `answerContentSelector`: `.prose` → `.whitespace-pre-wrap, [class*="markdown"]`
+  - `globalControlsSelector`: `header` → `header.flex.w-full.bg-bg-100`
+  - `observerTargetSelector`: `main` → `#__next`
+
+### 改进 / Improvements
+- 🎨 更新 Claude.ai CSS 样式以匹配实际的类名
+- 📝 创建验证脚本 `debug/claude_verify.js`
+- 📝 更新实现文档，记录实际的选择器
+
+---
+
+## [0.2.6] - 2024-11-20
+
+### 新增功能 / Added
+- ✨ 新增对 Claude.ai 的初步支持（实验性）
+  - 添加了 Claude.ai 的基础配置
+  - 添加了 manifest 权限配置
+  - 添加了初始的 CSS 样式
+  - ⚠️ **选择器需要在实际页面上验证和调整**
+  - 提供了诊断脚本 `debug/claude_diagnostic_script.js` 用于获取正确的选择器
+
+### 工具 / Tools
+- 📝 创建 Claude.ai 诊断脚本
+  - 自动查找正确的选择器
+  - 分析页面结构
+  - 提供详细的调试信息
+
+---
+
 ## [0.2.5] - 2024-11-20
 
 ### 修复 / Fixed
