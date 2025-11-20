@@ -163,8 +163,8 @@ function addFoldButton(answerEl) {
       clearInterval(pollForContent);
 
       const button = document.createElement('button');
-      const foldLabel = '折叠';
-      const unfoldLabel = '展开';
+      const foldLabel = '▲';
+      const unfoldLabel = '▼';
       
       button.textContent = foldLabel;
       button.className = 'aifold-fold-button';
@@ -236,9 +236,9 @@ function addIndividualFoldButton(contentEl, index, total) {
 
   const button = document.createElement('button');
   
-  // Simple labels for all buttons - just "折叠"/"展开"
-  const foldLabel = '折叠';
-  const unfoldLabel = '展开';
+  // Simple labels for all buttons - use symbols
+  const foldLabel = '▲';
+  const unfoldLabel = '▼';
   
   button.textContent = foldLabel;
   button.className = `aifold-fold-button aifold-fold-button-${index}`;
@@ -309,7 +309,7 @@ function createGlobalControlButtons(targetEl) {
 
   const foldAllButton = document.createElement('button');
 
-  foldAllButton.textContent = '全部折叠';
+  foldAllButton.textContent = 'Fold All';
 
   foldAllButton.className = 'aifold-global-button';
 
@@ -345,7 +345,7 @@ function createGlobalControlButtons(targetEl) {
               answerEl.classList.add('aifold-container-folded');
 
               if (button) {
-                const newText = button.dataset.unfoldLabel || '展开';
+                const newText = button.dataset.unfoldLabel || '▼';
                 button.textContent = newText;
               }
 
@@ -367,7 +367,7 @@ function createGlobalControlButtons(targetEl) {
           answerEl.classList.add('aifold-container-folded');
 
           if (button) {
-            const newText = button.dataset.unfoldLabel || '展开';
+            const newText = button.dataset.unfoldLabel || '▼';
             button.textContent = newText;
           }
         }
@@ -378,7 +378,7 @@ function createGlobalControlButtons(targetEl) {
 
     const unfoldAllButton = document.createElement('button');
 
-    unfoldAllButton.textContent = '全部展开';
+    unfoldAllButton.textContent = 'Unfold All';
 
     unfoldAllButton.className = 'aifold-global-button';
 
@@ -414,7 +414,7 @@ function createGlobalControlButtons(targetEl) {
               answerEl.classList.remove('aifold-container-folded');
 
               if (button) {
-                const newText = button.dataset.foldLabel || '折叠';
+                const newText = button.dataset.foldLabel || '▲';
                 button.textContent = newText;
               }
 
@@ -436,7 +436,7 @@ function createGlobalControlButtons(targetEl) {
           answerEl.classList.remove('aifold-container-folded');
 
           if (button) {
-            const newText = button.dataset.foldLabel || '折叠';
+            const newText = button.dataset.foldLabel || '▲';
             button.textContent = newText;
           }
         }

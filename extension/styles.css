@@ -16,7 +16,7 @@
   border: 1px solid #2d3748;
   border-radius: 6px;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.3;
   transition: opacity 0.2s ease-in-out;
 }
 
