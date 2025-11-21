@@ -38,10 +38,17 @@ const siteConfigs = {
   },
   qwen: {
     chatContainerSelector: '#app-container',
-    answerContainerSelector: '.text-response-render-container', // Qwen AI response container
+    answerContainerSelector: '.text-response-render-container', // Qwen.ai AI response container
     answerContentSelector: '.text-response-render-container', // The actual content to fold (the container itself)
     globalControlsSelector: '.flex.w-full.items-start', // Toolbar area
     observerTargetSelector: '#messages-container' // Messages container for observing mutations
+  },
+  qianwen: {
+    chatContainerSelector: '#ice-container',
+    answerContainerSelector: '[class*="answerItem-"]', // Qianwen.com AI answer container (CSS Modules with hash)
+    answerContentSelector: '.tongyi-markdown', // The markdown content to fold
+    globalControlsSelector: '.flex.w-full.h-\\[52px\\].relative.items-center', // Top bar with 52px height
+    observerTargetSelector: '#ice-container' // Main container for observing mutations
   },
   claude: {
     chatContainerSelector: 'body',
@@ -85,6 +92,9 @@ function detectSite() {
   }
   if (hostname.includes('qwen.ai')) {
     return siteConfigs.qwen;
+  }
+  if (hostname.includes('qianwen.com')) {
+    return siteConfigs.qianwen;
   }
   if (hostname.includes('claude.ai')) {
     return siteConfigs.claude;
@@ -471,6 +481,17 @@ function createGlobalControlButtons(targetEl) {
       targetEl.insertBefore(controlsContainer, rightSection);
     } else {
       // Fallback: insert at the end
+      targetEl.appendChild(controlsContainer);
+    }
+  } else if (currentSiteConfig === siteConfigs.qianwen) {
+    // Qianwen.com: insert INSIDE the right section at the beginning
+    // Find the .flex.items-center.absolute element and insert controls at its start
+    const rightSection = document.querySelector('.flex.items-center.absolute[style*="app-region"]');
+    if (rightSection) {
+      // Insert at the beginning of the right section (before other buttons)
+      rightSection.insertBefore(controlsContainer, rightSection.firstChild);
+    } else {
+      // Fallback: insert at the end of target
       targetEl.appendChild(controlsContainer);
     }
   } else {

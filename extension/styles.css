@@ -144,6 +144,52 @@ model-response .aifold-fold-button {
   margin-right: 16px;
 }
 
+/* Qianwen.com specific styles */
+[class*="answerItem-"] {
+  position: relative;
+}
+
+/* Ensure Qianwen.com's fold button is visible above other elements */
+[class*="answerItem-"] .aifold-fold-button {
+  z-index: 1000;
+  top: 8px;
+  right: 8px;
+}
+
+/* Show button on hover for Qianwen.com */
+[class*="answerItem-"]:hover .aifold-fold-button {
+  opacity: 1;
+}
+
+/* Qianwen.com global controls - inside the absolute positioned right section */
+.flex.items-center.absolute[style*="app-region"] .aifold-global-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 12px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  margin-right: 12px;
+}
+
+/* Qianwen.com global buttons style */
+.flex.items-center.absolute[style*="app-region"] .aifold-global-button {
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: inherit;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.flex.items-center.absolute[style*="app-region"] .aifold-global-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
 /* ChatGPT specific styles */
 [data-message-author-role="assistant"] {
   position: relative;

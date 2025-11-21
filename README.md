@@ -14,6 +14,7 @@ A Chrome extension to easily fold and unfold conversations in AI chat interfaces
 - ✅ Google AI Studio
 - ✅ Google Gemini
 - ✅ Qwen.ai
+- ✅ Qianwen.com (千问官网)
 - ✅ ChatGPT
 - ✅ Claude.ai
 - ✅ Grok

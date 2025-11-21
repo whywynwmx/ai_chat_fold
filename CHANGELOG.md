@@ -1,5 +1,68 @@
 # 更新日志 / Changelog
 
+## [0.2.21] - 2024-11-21
+
+### 修复 / Bug Fixes
+- 🐛 修复 **Qianwen.com** 全局按钮布局重叠问题
+  - 将按钮插入到右侧绝对定位容器（`.flex.items-center.absolute`）**内部**
+  - 放在该容器的最左边，其他按钮的左侧
+  - 避免与顶部栏其他元素重叠
+  - 更新 CSS 选择器以匹配新的父容器
+
+---
+
+## [0.2.20] - 2024-11-21
+
+### 改进 / Improvements
+- 🎨 调整 **Qianwen.com** 全局按钮位置，使其更靠右
+  - 添加 `margin-left: auto;` 将按钮推到右侧
+  - 增加 `margin-right` 到 16px 以保持与右侧元素的间距
+
+---
+
+## [0.2.19] - 2024-11-21
+
+### 修复 / Bug Fixes
+- 🐛 修复 **Qianwen.com** 全局控制按钮位置
+  - 将全局按钮移至顶部栏（52px 高度）
+  - 放置在右侧按钮的左边
+  - 使用更合适的选择器：`.flex.w-full.h-[52px].relative.items-center`
+  - 添加特殊插入逻辑以正确定位
+
+### 改进 / Improvements
+- 🎨 优化 Qianwen.com 全局按钮样式，与页面风格更协调
+
+---
+
+## [0.2.18] - 2024-11-21
+
+### 修复 / Bug Fixes
+- 🐛 修复 **Qianwen.com** DOM 选择器配置
+  - Qianwen.com 与 Qwen.ai 使用不同的 DOM 结构
+  - 为 Qianwen.com 创建独立配置
+  - 使用 CSS Modules 部分匹配选择器：`[class*="answerItem-"]`
+  - AI 回答内容选择器：`.tongyi-markdown`
+  - 全局控制按钮放置在聊天输入区域上方
+
+### 技术细节 / Technical Details
+- 新增 `siteConfigs.qianwen` 独立配置
+- 分离 `qwen.ai` 和 `qianwen.com` 的检测逻辑
+- 添加 Qianwen.com 特定的 CSS 样式
+
+---
+
+## [0.2.17] - 2024-11-21
+
+### 新功能 / New Features
+- ✅ 添加 **Qianwen.com** (千问官网) 基础支持
+  - 在 `manifest.json` 中添加域名权限
+
+### 技术细节 / Technical Details
+- 在 `detectSite()` 中添加 `qianwen.com` 域名检测
+- 在 `manifest.json` 中添加 `https://*.qianwen.com/*` 权限和匹配规则
+
+---
+
 ## [0.2.16] - 2024-11-20
 
 ### 改进 / Improvements
