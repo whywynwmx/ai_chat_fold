@@ -63,6 +63,13 @@ const siteConfigs = {
     answerContentSelector: '.prose, [class*="markdown"]', // The actual content to fold
     globalControlsSelector: '.h-16.top-0.absolute.z-10.flex.flex-row', // Top bar container
     observerTargetSelector: 'body' // Body element for observing mutations
+  },
+  doubao: {
+    chatContainerSelector: '[data-testid="scroll_view"]',
+    answerContainerSelector: '[data-testid="receive_message"]', // Doubao AI message container
+    answerContentSelector: '[data-testid="message_content"]', // The message content container (includes both thinking and answer)
+    globalControlsSelector: '.mr-24.flex-row.flex.min-w-0.flex-1.gap-8.overflow-hidden', // Top bar container
+    observerTargetSelector: '[data-testid="message-list"]' // Message list for observing mutations
   }
 };
 
@@ -101,6 +108,9 @@ function detectSite() {
   }
   if (hostname.includes('grok.com')) {
     return siteConfigs.grok;
+  }
+  if (hostname.includes('doubao.com')) {
+    return siteConfigs.doubao;
   }
   return null;
 }

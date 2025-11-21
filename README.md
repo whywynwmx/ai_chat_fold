@@ -18,6 +18,7 @@ A Chrome extension to easily fold and unfold conversations in AI chat interfaces
 - ✅ ChatGPT
 - ✅ Claude.ai
 - ✅ Grok
+- ✅ Doubao (豆包)
 - And more...
 
 ## Design & Usage

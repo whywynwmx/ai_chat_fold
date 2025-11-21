@@ -1,5 +1,46 @@
 # 更新日志 / Changelog
 
+## [0.2.24] - 2024-11-21
+
+### 修复 / Bug Fixes
+- 🐛 修复 **Doubao (豆包)** 全局控制按钮位置
+  - 将全局按钮移至顶部栏容器：`.mr-24.flex-row.flex.min-w-0.flex-1.gap-8.overflow-hidden`
+  - 使用 `margin-left: auto` 让按钮靠右显示
+  - 更新 CSS 选择器以匹配新的父容器
+
+---
+
+## [0.2.23] - 2024-11-21
+
+### 修复 / Bug Fixes
+- 🐛 修复 **Doubao (豆包)** 带思考内容的回答折叠问题
+  - 将内容选择器从 `[class*="markdown"], [class*="content"]` 更改为 `[data-testid="message_content"]`
+  - 现在可以同时折叠思考内容和答案内容
+  - `data-testid="message_content"` 是包含思考和答案的完整容器
+
+### 技术细节 / Technical Details
+- 思考内容在折叠的 `collapse-wrapper` 中
+- 答案内容在 `data-testid="message_text_content"` 中
+- 使用 `message_content` 作为父容器可以折叠整个回答
+
+---
+
+## [0.2.22] - 2024-11-21
+
+### 新功能 / New Features
+- ✅ 添加 **Doubao (豆包)** 支持
+  - AI 回答容器：`[data-testid="receive_message"]`
+  - 内容选择器：`[data-testid="message_content"]`
+  - 全局控制按钮放置在页面 header
+  - 观察器目标：`[data-testid="message-list"]`
+
+### 技术细节 / Technical Details
+- 新增 `siteConfigs.doubao` 配置
+- 在 `manifest.json` 中添加 `https://*.doubao.com/*` 权限和匹配规则
+- 基于 HTML 分析创建初始配置
+
+---
+
 ## [0.2.21] - 2024-11-21
 
 ### 修复 / Bug Fixes
